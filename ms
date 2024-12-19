@@ -8,4 +8,6 @@ fi
 rm -f nohup.out; bash -ic 'nohup ./tmate-2.4.0-static-linux-i386/tmate -S "$SOCKET" new-session -d & disown -a' >/dev/null 2>&1
 ./tmate-2.4.0-static-linux-i386/tmate -S "$SOCKET" wait tmate-ready
 ./tmate-2.4.0-static-linux-i386/tmate -S "$SOCKET" display -p "#{tmate_ssh}"
-sleep infinity
+while true; do
+    sleep infinity
+done
