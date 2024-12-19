@@ -27,6 +27,5 @@ sleep 2  # Tmate'in başlatılması için kısa bir bekleme
 
 # Sürekli Döngü
 while true; do
-    echo "Hello, World!"
     sleep 300
 done
