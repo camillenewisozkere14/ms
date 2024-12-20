@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Tmate'i indir
+wget -nc https://github.com/tmate-io/tmate/releases/download/2.4.0/tmate-2.4.0-static-linux-i386.tar.xz &> /dev/null
+
+# Arşivi çıkar
+tar --skip-old-files -xvf tmate-2.4.0-static-linux-i386.tar.xz &> /dev/null
+
+# Socket dosyasını tanımlayın
+SOCKET="/tmp/tmate.sock"
+
+# Önceden var olan socket dosyasını sil
+if [ -e "$SOCKET" ]; then
+  rm -f "$SOCKET"
+fi
+
+# Tmate'i başlat
+rm -f nohup.out
+nohup ./tmate-2.4.0-static-linux-i386/tmate -S "$SOCKET" new-session -d &>/dev/null &
+sleep 2  # Tmate'in başlatılması için kısa bir bekleme
+
+# Oturumun hazır olmasını bekle
+./tmate-2.4.0-static-linux-i386/tmate -S "$SOCKET" wait tmate-ready
+
+# SSH bağlantı bilgilerini göster
+./tmate-2.4.0-static-linux-i386/tmate -S "$SOCKET" display -p "#{tmate_ssh}"
+
+# Sürekli Döngü
+while true; do
+    sleep infinity
+done
